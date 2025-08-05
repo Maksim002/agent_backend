@@ -2,6 +2,7 @@ package com.example.beckend_agent.auth.registration
 
 import com.example.beckend_agent.bd.model.User
 import com.example.beckend_agent.bd.repository.AuthRepository
+import com.example.utils.ApiResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -13,18 +14,39 @@ class RegistrationController(
 ) {
 
     @PostMapping
-    fun savePhoneNumber(@RequestBody user: User): ResponseEntity<Any> {
+    fun savePhoneNumber(@RequestBody user: User): ResponseEntity<ApiResponse<User>> {
         val existing = phoneNumberRepository.findByPhoneNumber(user.phoneNumber)
         return if (existing != null) {
             ResponseEntity
                 .status(HttpStatus.CONFLICT)
-                .body("Пользователь с таким номером уже существует.")
+                .body(
+                    ApiResponse(
+                        status = "ERROR",
+                        data = null,
+                        message = "Пользователь с таким номером уже существует."
+                    )
+                )
         } else {
             val saved = phoneNumberRepository.save(user)
-            ResponseEntity.ok(saved)
+            ResponseEntity.ok(
+                ApiResponse(
+                    status = "SUCCESS",
+                    data = saved,
+                    message = null
+                )
+            )
         }
     }
 
     @GetMapping
-    fun getAll(): List<User> = phoneNumberRepository.findAll()
+    fun getAll(): ResponseEntity<ApiResponse<List<User>>> {
+        val users = phoneNumberRepository.findAll()
+        return ResponseEntity.ok(
+            ApiResponse(
+                status = "SUCCESS",
+                data = users.ifEmpty { null }, // если пусто — будет null
+                message = if (users.isEmpty()) "Нет пользователей." else null
+            )
+        )
+    }
 }
