@@ -6,18 +6,22 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
-import jakarta.persistence.UniqueConstraint
 
 @Entity
-@Table(name = "users", uniqueConstraints = [UniqueConstraint(columnNames = ["phone_number"])])
-data class User(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+@Table(name = "users")
+class User() {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id: Long? = null
 
-    @Column(name = "full_name")
-    val fullName: String,
+    @Column(name = "full_name", nullable = false)
+    lateinit var fullName: String
 
-    @Column(name = "phone_number", unique = true)
-    val phoneNumber: String
-)
+    @Column(name = "phone_number", unique = true, nullable = false)
+    lateinit var phoneNumber: String
+
+    // Дополнительный конструктор для удобства
+    constructor(fullName: String, phoneNumber: String) : this() {
+        this.fullName = fullName
+        this.phoneNumber = phoneNumber
+    }
+}

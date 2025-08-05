@@ -3,7 +3,6 @@ package com.example.beckend_agent.auth.registration
 import com.example.beckend_agent.bd.model.User
 import com.example.beckend_agent.bd.repository.AuthRepository
 import com.example.utils.ApiResponse
-import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -28,26 +27,14 @@ class RegistrationController(
                     )
                 )
         } else {
-            try {
-                val saved = phoneNumberRepository.save(user)
-                ResponseEntity.ok(
-                    ApiResponse(
-                        status = "SUCCESS",
-                        data = saved,
-                        message = null
-                    )
+            val saved = phoneNumberRepository.save(user)
+            ResponseEntity.ok(
+                ApiResponse(
+                    status = "SUCCESS",
+                    data = saved,
+                    message = null
                 )
-            } catch (e: DataIntegrityViolationException) {
-                ResponseEntity
-                    .status(HttpStatus.CONFLICT)
-                    .body(
-                        ApiResponse(
-                            status = "ERROR",
-                            data = null,
-                            message = "Номер телефона уже зарегистрирован."
-                        )
-                    )
-            }
+            )
         }
     }
 
