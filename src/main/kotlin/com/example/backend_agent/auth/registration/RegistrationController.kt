@@ -1,8 +1,8 @@
-package com.example.beckend_agent.auth.registration
+package com.example.backend_agent.auth.registration
 
-import com.example.beckend_agent.bd.model.User
-import com.example.beckend_agent.bd.repository.AuthRepository
-import com.example.utils.ApiResponse
+import com.example.backend_agent.bd.model.User
+import com.example.backend_agent.bd.repository.AuthRepository
+import com.example.utils.component.ApiResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*

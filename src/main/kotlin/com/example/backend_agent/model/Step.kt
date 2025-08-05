@@ -1,4 +1,4 @@
-package com.example.beckend_agent.model
+package com.example.backend_agent.model
 
 data class Step(
     val id: Int,

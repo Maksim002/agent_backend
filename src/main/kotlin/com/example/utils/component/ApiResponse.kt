@@ -1,4 +1,4 @@
-package com.example.utils
+package com.example.utils.component
 
 data class ApiResponse<T>(
     val status: String,

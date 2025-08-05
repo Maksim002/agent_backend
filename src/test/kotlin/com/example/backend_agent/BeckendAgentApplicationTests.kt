@@ -1,4 +1,4 @@
-package com.example.beckend_agent
+package com.example.backend_agent
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

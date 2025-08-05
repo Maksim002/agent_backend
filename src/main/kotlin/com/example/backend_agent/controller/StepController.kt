@@ -1,7 +1,7 @@
-package com.example.beckend_agent.controller
+package com.example.backend_agent.controller
 
-import com.example.beckend_agent.model.Step
-import com.example.beckend_agent.model.StepService
+import com.example.backend_agent.model.Step
+import com.example.backend_agent.model.StepService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
