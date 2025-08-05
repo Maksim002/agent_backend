@@ -15,7 +15,5 @@ data class User(
     val fullName: String,
 
     @Column(unique = true)
-    val phoneNumber: String,
-
-    val role: String // например: "Фермер"
+    val phoneNumber: String
 )
