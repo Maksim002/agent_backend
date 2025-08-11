@@ -15,6 +15,6 @@ class AppUserDetailsService(
         val u = userRepository.findByPhoneNumber(username)
             ?: throw UsernameNotFoundException("User not found")
         // Нет пароля и ролей, создаём UserDetails с пустым списком authorities
-        return User(u.phoneNumber, "", emptyList())
+        return User(u.phoneNumber, u.password, emptyList())
     }
 }

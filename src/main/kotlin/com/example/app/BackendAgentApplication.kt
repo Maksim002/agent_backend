@@ -7,7 +7,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @EnableJpaRepositories("com.example.backend_agent.bd.repository")
 @EntityScan("com.example.backend_agent.bd.model")
-@SpringBootApplication(scanBasePackages = ["com.example.utils.security"])
+@SpringBootApplication(scanBasePackages = [
+    "com.example.backend_agent",
+    "com.example.utils.security"
+])
 class AgentBackendApplication
 
 fun main(args: Array<String>) {

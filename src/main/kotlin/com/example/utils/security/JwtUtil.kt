@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.security.Key
 import java.util.Date
+import java.util.UUID
 
 @Component
 class JwtUtil(
@@ -20,18 +21,21 @@ class JwtUtil(
 
     @PostConstruct
     fun init() {
-        // Secret гарантированно не null и достаточной длины
         key = Keys.hmacShaKeyFor(secret.toByteArray())
     }
 
-    fun generateToken(username: String, claims: Map<String, Any>): String =
-        Jwts.builder()
+    fun generateToken(username: String, claims: Map<String, Any>): String {
+        val now = Date()
+        val expiry = Date(now.time + validityMs)
+        return Jwts.builder()
             .setSubject(username)
+            .setIssuedAt(now)
+            .setExpiration(expiry)
+            .setId(UUID.randomUUID().toString()) // 👈 добавлен jti
             .addClaims(claims)
-            .setIssuedAt(Date())
-            .setExpiration(Date(System.currentTimeMillis() + validityMs))
             .signWith(key, SignatureAlgorithm.HS256)
             .compact()
+    }
 
     fun validateToken(token: String): Boolean =
         try {
@@ -46,6 +50,12 @@ class JwtUtil(
             .parseClaimsJws(token)
             .body
             .subject
+
+    fun getJti(token: String): String = // 👈 вот этот метод добавлен
+        Jwts.parserBuilder().setSigningKey(key).build()
+            .parseClaimsJws(token)
+            .body
+            .id
 
     fun getAllClaims(token: String): Claims =
         Jwts.parserBuilder().setSigningKey(key).build()

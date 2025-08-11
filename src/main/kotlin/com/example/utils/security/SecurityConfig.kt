@@ -21,9 +21,9 @@ class SecurityConfig(
             .authorizeHttpRequests {
                 it
                     .requestMatchers(
-                        "/auth/login",        // 👈 разрешаем login
-                        "/api/user",          // 👈 если у тебя есть регистрация
-                        "/auth/**"            // 👈 можно разрешить всё под /auth/
+                        "/auth/login",
+                        "/api/user",
+                        "/auth/**"
                     ).permitAll()
                     .anyRequest().authenticated()
             }
