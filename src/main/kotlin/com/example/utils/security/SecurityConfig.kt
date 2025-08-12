@@ -24,7 +24,6 @@ class SecurityConfig(
                         "/auth/login",
                         "/api/user",
                         "/auth/**",
-                        "/videos/**"
                     ).permitAll()
                     .anyRequest().authenticated()
             }
