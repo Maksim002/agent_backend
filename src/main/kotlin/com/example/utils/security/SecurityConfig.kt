@@ -23,7 +23,8 @@ class SecurityConfig(
                     .requestMatchers(
                         "/auth/login",
                         "/api/user",
-                        "/auth/**"
+                        "/auth/**",
+                        "/videos/**"
                     ).permitAll()
                     .anyRequest().authenticated()
             }
