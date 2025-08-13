@@ -18,7 +18,7 @@ class RegistrationController(
         val existing = phoneNumberRepository.findByPhoneNumber(user.phoneNumber)
         return if (existing != null) {
             ResponseEntity
-                .status(HttpStatus.CONFLICT)
+                .status(HttpStatus.OK)
                 .body(
                     ApiResponse(
                         status = "ERROR",
